@@ -1,0 +1,45 @@
+name: "build-frontend"
+
+on:
+  push:
+    branches: [ main, cicd ]
+
+jobs:
+  # vue build
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        npm i
+    - name: Running Vue Build
+      run: |
+        npm run build
+    - name: Caching dist directory
+      uses: actions/upload-artifact@v2
+      with:
+        name: dist
+        path: /home/runner/work/valentines-cards/valentines-cards/dist
+        if-no-files-found: error
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Fetch Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: dist
+
+    - name: List directory
+      run: ls -la
+
+    - name: Deploy to gh-pages branch
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: .
+        CLEAN: true
