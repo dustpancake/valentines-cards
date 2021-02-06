@@ -10,7 +10,7 @@ import VueGtag from "vue-gtag";
 Vue.config.productionTip = false
 
 Vue.use(VueGtag, {
-  config: { id: "UA-165287410-3" } // Google Analytics Tag
+  config: { id: "G-NPL6VWZH51" } // Google Analytics Tag
 }, router);
 
 new Vue({
