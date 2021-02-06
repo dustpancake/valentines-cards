@@ -10,11 +10,11 @@
     </div>
 
     <b-button-group class="pt-3">
-      <b-button class="valentine" variant="light">
+      <b-button @click="onCardDownload" class="valentine" variant="light">
         Card <b-icon icon="download" />
       </b-button>
-      <b-button variant="light">
-        Raw Image <b-icon icon="download" />
+      <b-button @click="onPrintDownload" variant="light">
+        Print <b-icon icon="download" />
       </b-button>
     </b-button-group>
     </b-card>
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import track from "@/plugins/tagger"
+
 export default {
     name: "CardTile",
     props: {
@@ -32,11 +34,15 @@ export default {
 
     methods: {
         onCardDownload() {
-
+          // modified file extension inplace
+          track(this, "card-"+this.imagepath) // just needs some sort of unique identifier
+          window.location.href = "cards/card_" + this.imagepath.substr(0, this.imagepath.lastIndexOf(".")) + ".pdf";
+          
         },
 
-        onRawDownload() {
-            
+        onPrintDownload() {
+          track(this, "print-"+this.imagepath)
+          window.location.href ="prints/print_" + this.imagepath.substr(0, this.imagepath.lastIndexOf(".")) + ".pdf";
         }
     }
 }

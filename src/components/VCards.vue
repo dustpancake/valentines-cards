@@ -1,7 +1,8 @@
 <template>
   <div id="allcards">
+    <b-container style="max-width: 1000px">
     <b-row class="p-4">
-      <b-col class="pb-4" cols="6" v-for="card in cards" :key="card.imagepath">
+      <b-col class="pb-4" md="6" v-for="card in cards" :key="card.imagepath">
           <CardTile 
             :title="card.title"
             :imagepath="card.imagepath"
@@ -9,6 +10,7 @@
           />
       </b-col>
     </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -35,6 +37,11 @@ export default {
             imagepath: "appleofmyeye.png",
             title: "APPLE OF MY EYE",
             about: "The sweetest stare."
+          },
+          {
+            imagepath: "siteicon.png",
+            title: "APPLE OF MY EYE ALT",
+            about: "My code generated prints for this text-less variant and they looked decent."
           },
           {
             imagepath: "jamesjoyce.png",
